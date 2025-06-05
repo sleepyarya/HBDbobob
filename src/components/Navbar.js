@@ -41,12 +41,12 @@ const Navbar = () => {
       }}>
         <h2 style={{
           margin: 0,
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           textAlign: 'left',
           flex: 1,
           marginRight: '4rem',
           '@media (maxWidth: 768px)': {
-            fontSize: '1.5rem',
+            fontSize: '1.2rem',
             marginBottom: '0.5rem'
           }
         }}>
@@ -77,27 +77,38 @@ const Navbar = () => {
             background: 'rgba(255, 255, 255, 0.7)'
           }
         }}>
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.path}
-              className="nav-link"
-              style={{
-                backgroundColor: isActive(item.path) ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                borderBottom: isActive(item.path) ? '2px solid white' : 'none',
-                whiteSpace: 'nowrap',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '1.1rem',
-                padding: '0.5rem 1rem',
-                cursor: 'pointer',
-                userSelect: 'none'
-              }}
-            >
-              <span style={{ fontSize: '1.3rem', cursor: 'pointer' }}>{item.icon}</span>
-              <span style={{ cursor: 'pointer' }}>{item.name}</span>
-            </a>
+          {menuItems.map((item, idx) => (
+            <React.Fragment key={item.name}>
+              <a
+                href={item.path}
+                className="nav-link"
+                style={{
+                  backgroundColor: isActive(item.path) ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                  borderBottom: isActive(item.path) ? '2px solid white' : 'none',
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '1.1rem',
+                  padding: '0.5rem 1rem',
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}
+              >
+                <span style={{ fontSize: '1.3rem' }}>{item.icon}</span>
+                <span style={{ cursor: 'pointer' }}>{item.name}</span>
+              </a>
+              {idx === menuItems.length - 1 && (
+                <div style={{
+                  color: 'white',
+                  fontSize: '1.5rem',
+                  padding: '0 1rem',
+                  userSelect: 'none',
+                  fontWeight: 'bold',
+                  opacity: 0.8
+                }}>|</div>
+              )}
+            </React.Fragment>
           ))}
           <button
             onClick={handleLogout}
