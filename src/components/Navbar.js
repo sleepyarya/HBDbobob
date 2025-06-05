@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -42,11 +41,12 @@ const Navbar = () => {
       }}>
         <h2 style={{
           margin: 0,
-          fontSize: '1.5rem',
+          fontSize: '2rem',
           textAlign: 'left',
           flex: 1,
+          marginRight: '4rem',
           '@media (maxWidth: 768px)': {
-            fontSize: '1.2rem',
+            fontSize: '1.5rem',
             marginBottom: '0.5rem'
           }
         }}>
@@ -57,8 +57,24 @@ const Navbar = () => {
           display: 'flex',
           alignItems: 'center',
           gap: '1.5rem',
-          '@media (maxWidth: 768px)': {
-            display: 'none'
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          paddingBottom: '5px',
+          marginTop: '1rem',
+          '&::-webkit-scrollbar': {
+            height: '6px',
+            display: 'block'
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '3px'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'rgba(255, 255, 255, 0.5)',
+            borderRadius: '3px'
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            background: 'rgba(255, 255, 255, 0.7)'
           }
         }}>
           {menuItems.map((item) => (
@@ -74,11 +90,13 @@ const Navbar = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 fontSize: '1.1rem',
-                padding: '0.5rem 1rem'
+                padding: '0.5rem 1rem',
+                cursor: 'pointer',
+                userSelect: 'none'
               }}
             >
-              <span style={{ fontSize: '1.3rem' }}>{item.icon}</span>
-              <span>{item.name}</span>
+              <span style={{ fontSize: '1.3rem', cursor: 'pointer' }}>{item.icon}</span>
+              <span style={{ cursor: 'pointer' }}>{item.name}</span>
             </a>
           ))}
           <button
@@ -96,74 +114,17 @@ const Navbar = () => {
             <span>Logout</span>
           </button>
         </div>
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="mobile-menu-button"
-          style={{
-            marginLeft: '1rem',
-            fontSize: '1.5rem',
-            display: 'block'
-          }}
-        >
-          ☰
-        </button>
       </div>
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          backgroundColor: '#FF69B4',
-          padding: '1rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          width: '100%',
-          boxSizing: 'border-box',
-          '@media (minWidth: 769px)': {
-            display: 'none'
-          }
-        }}>
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.path}
-              className="nav-link"
-              style={{
-                backgroundColor: isActive(item.path) ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                borderLeft: isActive(item.path) ? '3px solid white' : 'none',
-                padding: '0.8rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '2rem'
-              }}
-              title={item.name}
-            >
-              {item.icon}
-            </a>
-          ))}
-          <button
-            onClick={handleLogout}
-            className="nav-button"
-            style={{
-              width: '100%',
-              padding: '0.8rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '2rem'
-            }}
-            title="Logout"
-          >
-            👋
-          </button>
-        </div>
-      )}
+      <div style={{
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '1rem',
+        marginTop: '0.5rem',
+        letterSpacing: '0.5px',
+        fontWeight: 500
+      }}>
+        ⬅️ Scroll ke kiri jika menu tidak terlihat sampai tombol logout
+      </div>
     </nav>
   );
 };

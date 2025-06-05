@@ -38,10 +38,390 @@
 }
 
 body {
-  background: #f6f8fa;
+  background: linear-gradient(to bottom, #ffe6e6, #ffcce0);
   font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.love-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 24px;
+  animation: float 4s ease-in infinite;
+  opacity: 0.8;
+  transform: rotate(0deg);
+  user-select: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.love-animation::before {
+  content: "❤️";
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.3;
+}
+
+.love-animation::after {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes floatRight {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100px) translateX(-100px);
+    opacity: 0;
+  }
+}
+
+/* Add multiple hearts with different positions and delays */
+.love-animation span:nth-child(1) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7s linear infinite;
+  opacity: 0.3;
+  left: 10%;
+}
+
+.love-animation span:nth-child(2) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: float 9s linear infinite;
+  opacity: 0.3;
+  left: 30%;
+}
+
+.love-animation span:nth-child(3) {
+  content: "💓";
+  position: absolute;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+  opacity: 0.3;
+  left: 50%;
+}
+
+.love-animation span:nth-child(4) {
+  content: "💘";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8s linear infinite;
+  opacity: 0.3;
+  left: 70%;
+}
+
+.love-animation span:nth-child(5) {
+  content: "💕";
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.3;
+  left: 90%;
+}
+
+.love-animation span:nth-child(6) {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7.5s linear infinite;
+  opacity: 0.3;
+  left: 20%;
+}
+
+.love-animation span:nth-child(7) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: float 6.5s linear infinite;
+  opacity: 0.3;
+  left: 40%;
+}
+
+.love-animation span:nth-child(8) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8.5s linear infinite;
+  opacity: 0.3;
+  left: 60%;
+}
+
+.love-animation span:nth-child(9) {
+  content: "💓";
+  position: absolute;
+  font-size: 20px;
+  animation: float 5.5s linear infinite;
+  opacity: 0.3;
+  left: 80%;
+}
+
+.love-animation span:nth-child(10) {
+  content: "💘";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7s linear infinite;
+  opacity: 0.3;
+  left: 15%;
+}
+
+.love-animation span:nth-child(11) {
+  content: "💕";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8s linear infinite;
+  opacity: 0.3;
+  left: 35%;
+}
+
+.love-animation span:nth-child(12) {
+  content: "❤️";
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.3;
+  left: 55%;
+}
+
+.love-animation span:nth-child(13) {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7.5s linear infinite;
+  opacity: 0.3;
+  left: 75%;
+}
+
+.love-animation span:nth-child(14) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: float 5.5s linear infinite;
+  opacity: 0.3;
+  left: 85%;
+}
+
+.love-animation span:nth-child(15) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8.5s linear infinite;
+  opacity: 0.3;
+  left: 95%;
+}
+
+/* Right side hearts */
+.love-animation span:nth-child(16) {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 7s linear infinite;
+  opacity: 0.3;
+  right: 10%;
+}
+
+.love-animation span:nth-child(17) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 8.5s linear infinite;
+  opacity: 0.3;
+  right: 30%;
+}
+
+.love-animation span:nth-child(18) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 6s linear infinite;
+  opacity: 0.3;
+  right: 50%;
+}
+
+.love-animation span:nth-child(19) {
+  content: "💓";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 7.5s linear infinite;
+  opacity: 0.3;
+  right: 70%;
+}
+
+.love-animation span:nth-child(20) {
+  content: "💘";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 5.5s linear infinite;
+  opacity: 0.3;
+  right: 90%;
+}
+
+.love-animation span:nth-child(21) {
+  content: "💕";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 8s linear infinite;
+  opacity: 0.3;
+  right: 20%;
+}
+
+.love-animation span:nth-child(22) {
+  content: "❤️";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 6.5s linear infinite;
+  opacity: 0.3;
+  right: 40%;
+}
+
+.love-animation span:nth-child(23) {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 7s linear infinite;
+  opacity: 0.3;
+  right: 60%;
+}
+
+.love-animation span:nth-child(24) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 8.5s linear infinite;
+  opacity: 0.3;
+  right: 80%;
+}
+
+.love-animation span:nth-child(25) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 5s linear infinite;
+  opacity: 0.3;
+  right: 95%;
+}
+
+/* Additional hearts in the middle */
+.love-animation span:nth-child(26) {
+  content: "💓";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7.5s linear infinite;
+  opacity: 0.3;
+  left: 25%;
+}
+
+.love-animation span:nth-child(27) {
+  content: "💘";
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.3;
+  left: 45%;
+}
+
+.love-animation span:nth-child(28) {
+  content: "💕";
+  position: absolute;
+  font-size: 20px;
+  animation: float 8s linear infinite;
+  opacity: 0.3;
+  left: 65%;
+}
+
+.love-animation span:nth-child(29) {
+  content: "❤️";
+  position: absolute;
+  font-size: 20px;
+  animation: float 5.5s linear infinite;
+  opacity: 0.3;
+  left: 85%;
+}
+
+.love-animation span:nth-child(30) {
+  content: "💖";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 7s linear infinite;
+  opacity: 0.3;
+  right: 25%;
+}
+
+.love-animation span:nth-child(31) {
+  content: "💝";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 6.5s linear infinite;
+  opacity: 0.3;
+  right: 45%;
+}
+
+.love-animation span:nth-child(32) {
+  content: "💗";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 8s linear infinite;
+  opacity: 0.3;
+  right: 65%;
+}
+
+.love-animation span:nth-child(33) {
+  content: "💓";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 5s linear infinite;
+  opacity: 0.3;
+  right: 85%;
+}
+
+.love-animation span:nth-child(34) {
+  content: "💘";
+  position: absolute;
+  font-size: 20px;
+  animation: float 7s linear infinite;
+  opacity: 0.3;
+  left: 5%;
+}
+
+.love-animation span:nth-child(35) {
+  content: "💕";
+  position: absolute;
+  font-size: 20px;
+  animation: floatRight 8.5s linear infinite;
+  opacity: 0.3;
+  right: 5%;
 }
 
 .page-container {
@@ -193,12 +573,6 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-/* Prevent horizontal overflow */
-body {
-  overflow-x: hidden;
-  width: 100%;
 }
 
 /* Remove custom cursor styles */

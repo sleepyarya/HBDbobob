@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
+import LoveAnimation from './components/LoveAnimation';
 
 const Dashboard = () => {
   return (
@@ -10,6 +11,7 @@ const Dashboard = () => {
       overflowX: 'hidden'
     }}>
       <Navbar />
+      <LoveAnimation />
       <div style={{
         padding: '2rem',
         maxWidth: '1200px',
