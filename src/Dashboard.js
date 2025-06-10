@@ -3,23 +3,12 @@ import MobileView from './views/MobileView';
 import DesktopView from './views/DesktopView';
 
 const Dashboard = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 720);
 
   useEffect(() => {
-    const checkDevice = () => {
-      setIsMobile(window.innerWidth <= 720);
-    };
-
-    // Check initial device width
-    checkDevice();
-
-    // Add event listener for window resize
-    window.addEventListener('resize', checkDevice);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', checkDevice);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth <= 720);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return isMobile ? <MobileView /> : <DesktopView />;

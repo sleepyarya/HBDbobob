@@ -1,4 +1,3 @@
-// src/views/MobileView.jsx
 import React, { useRef, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import LoveAnimation from '../components/LoveAnimation';
@@ -65,143 +64,92 @@ const MobileView = () => {
   };
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       backgroundColor: '#FFE4E1',
-      width: '100%',
+      width: '100vw',
       overflowX: 'hidden'
     }}>
       <Navbar />
       <LoveAnimation />
       <div style={{
-        padding: '1rem',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: '1rem',
+        width: '100%',
+        boxSizing: 'border-box'
       }}>
-        <img 
-          src="/bobob.jpg" 
-          alt="Foto Ulang Tahun" 
-          style={{
-            width: '280px',
-            height: '350px',
-            objectFit: 'cover',
-            borderRadius: '20px',
-            marginTop: '1rem',
-            boxShadow: '0 4px 16px rgba(215,38,96,0.13)',
-            border: '3px solid #ffb6c1'
-          }}
-        />
-        
         <div style={{
-          margin: '1.5rem 1rem',
-          padding: '1.5rem',
-          background: 'rgba(255,255,255,0.8)',
-          borderRadius: '15px',
-          boxShadow: '0 2px 10px rgba(215,38,96,0.15)'
+          width: '100%',
+          maxWidth: 400,
+          background: '#fff6f8',
+          borderRadius: 18,
+          boxShadow: '0 2px 8px rgba(215,38,96,0.10)',
+          margin: '1rem 0',
+          padding: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}>
+          <img
+            src="/bobob.jpg"
+            alt="Foto Ulang Tahun"
+            style={{
+              width: '80%',
+              maxWidth: 220,
+              height: 'auto',
+              borderRadius: 16,
+              marginBottom: 16,
+              objectFit: 'cover',
+              boxShadow: '0 4px 16px rgba(215,38,96,0.13)',
+              border: '2px solid #ffb6c1',
+              background: '#fff'
+            }}
+          />
           <p style={{
             fontSize: '1rem',
             color: '#d72660',
             lineHeight: '1.6',
-            textAlign: 'center',
-            marginBottom: '1rem'
+            fontWeight: 500,
+            textAlign: 'center'
           }}>
             Awoww cayangggkuu, selamat ulang tahunnn yahh. Semoga panjang umuurr, sehat selaluu, berbakti sama kedua orang tuaa. Maaci yaa udah nemenin aku sejauh inii. Semoga hubungan kita juga makin langgengg. Jadi anak yang baik dechh pokoknyaa. Dikurangin ngambek e muwhehehe. HBD pokoknyaa bubuu  🎉🎂💖
           </p>
           <p style={{
             color: '#000000',
             fontWeight: 500,
-            fontSize: '0.9rem',
-            textAlign: 'center'
+            fontSize: '0.95rem',
+            textAlign: 'center',
+            marginTop: 8
           }}>
             From : Ur lovely Dudu
           </p>
-        </div>
-
-        <div style={{
-          width: '90%',
-          padding: '1rem',
-          background: 'rgba(255,245,246,0.95)',
-          borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(215,38,96,0.10)'
-        }}>
-          <audio ref={audioRef} src="/song.mp3" preload="metadata" />
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.8rem',
-            marginBottom: '0.8rem',
-            justifyContent: 'center'
-          }}>
-            <button
-              onClick={handlePlay}
-              disabled={isPlaying}
-              style={{
-                background: '#ff4d6d',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: 36,
-                height: 36,
-                fontSize: 16,
-                cursor: isPlaying ? 'not-allowed' : 'pointer'
-              }}
-            >
-              ▶️
-            </button>
-            <button
-              onClick={handleStop}
-              style={{
-                background: '#ffb3c1',
-                color: '#ff4d6d',
-                border: 'none',
-                borderRadius: '50%',
-                width: 36,
-                height: 36,
-                fontSize: 16,
-                cursor: 'pointer'
-              }}
-            >
-              ⏹️
-            </button>
-            <span style={{ fontWeight: 500, color: '#d72660', fontSize: 13 }}>
-              Music
-            </span>
-          </div>
           <div style={{
             width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
+            marginTop: 16,
+            padding: '0.5rem',
+            background: 'rgba(255,245,246,0.95)',
+            borderRadius: '12px',
+            boxShadow: '0 2px 8px rgba(215,38,96,0.10)'
           }}>
-            <span style={{ fontSize: 13, color: '#d72660', minWidth: 36 }}>
-              {formatTime(progress)}
-            </span>
-            <div
-              onClick={handleProgressClick}
-              style={{
-                flex: 1,
-                height: 8,
-                background: '#ffb3c1',
-                borderRadius: 4,
-                cursor: 'pointer',
-                position: 'relative'
-              }}
-            >
-              <div
-                style={{
-                  width: duration ? `${(progress/duration)*100}%` : '0%',
-                  height: '100%',
-                  background: '#ff4d6d',
-                  borderRadius: 4,
-                  transition: 'width 0.2s'
-                }}
-              />
+            <audio ref={audioRef} src="/song.mp3" preload="metadata" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.5rem', justifyContent: 'center' }}>
+              <button onClick={handlePlay} disabled={isPlaying} style={{
+                background: '#ff4d6d', color: 'white', border: 'none', borderRadius: '50%', width: 36, height: 36, fontSize: 16, cursor: isPlaying ? 'not-allowed' : 'pointer', boxShadow: '0 2px 8px rgba(255,77,109,0.10)'
+              }}>▶️</button>
+              <button onClick={handleStop} style={{
+                background: '#ffb3c1', color: '#ff4d6d', border: 'none', borderRadius: '50%', width: 36, height: 36, fontSize: 16, cursor: 'pointer', boxShadow: '0 2px 8px rgba(255,77,109,0.10)'
+              }}>⏹️</button>
+              <span style={{ fontWeight: 500, color: '#d72660', fontSize: 13 }}>Music</span>
             </div>
-            <span style={{ fontSize: 13, color: '#d72660', minWidth: 36 }}>
-              {formatTime(duration)}
-            </span>
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: 13, color: '#d72660', minWidth: 36 }}>{formatTime(progress)}</span>
+              <div onClick={handleProgressClick} style={{ flex: 1, height: 8, background: '#ffb3c1', borderRadius: 4, cursor: 'pointer', position: 'relative' }}>
+                <div style={{ width: duration ? `${(progress/duration)*100}%` : '0%', height: '100%', background: '#ff4d6d', borderRadius: 4, transition: 'width 0.2s' }} />
+              </div>
+              <span style={{ fontSize: 13, color: '#d72660', minWidth: 36 }}>{formatTime(duration)}</span>
+            </div>
           </div>
         </div>
       </div>
