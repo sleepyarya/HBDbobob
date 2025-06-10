@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Custom hook to detect if device is mobile based on window width
-function useIsMobile(breakpoint = 768) {
+function useIsMobile(breakpoint = 720) { // Ubah breakpoint ke 720 sesuai dengan Dashboard
   const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
 
   useEffect(() => {
@@ -38,82 +37,122 @@ const Login = () => {
       navigate('/dashboard');
     } else {
       setError('Login gagal');
+      toast.error('Username atau Password Salah!', {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
-  // Card style based on device
-  const cardStyle = isMobile
-    ? {
-        width: '98vw',
-        maxWidth: '98vw',
-        minWidth: '0',
-        boxSizing: 'border-box',
-        padding: '2rem 0.5rem',
+  const containerStyle = {
+    minHeight: '100vh',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFE4E1',
+    padding: isMobile ? '1rem' : '2rem',
+    boxSizing: 'border-box',
+    overflow: 'hidden'
+  };
+
+  const formStyle = {
+    width: isMobile ? '90%' : '400px',
+    maxWidth: '450px',
+    backgroundColor: '#fff',
+    borderRadius: isMobile ? '16px' : '20px',
+    padding: isMobile ? '1.5rem' : '2rem',
+    boxShadow: '0 4px 16px rgba(215,38,96,0.15)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: isMobile ? '0.8rem' : '1rem',
+    border: '2px solid #ffb6c1'
+  };
+
+  const titleStyle = {
+    fontSize: isMobile ? '1.5rem' : '2rem',
+    color: '#ff4d6d',
+    textAlign: 'center',
+    marginBottom: isMobile ? '1.5rem' : '2rem',
+    fontWeight: 'bold',
+    textShadow: '2px 2px 8px rgba(255,77,109,0.2)'
+  };
+
+  const inputStyle = {
+    padding: isMobile ? '0.8rem' : '1rem',
+    borderRadius: '8px',
+    border: '2px solid #ffb6c1',
+    fontSize: isMobile ? '0.95rem' : '1rem',
+    width: '100%',
+    boxSizing: 'border-box',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    '&:focus': {
+      borderColor: '#ff4d6d'
+    }
+  };
+
+  const buttonStyle = {
+    padding: isMobile ? '0.8rem' : '1rem',
+    backgroundColor: '#ff4d6d',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: isMobile ? '0.95rem' : '1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    marginTop: isMobile ? '0.5rem' : '1rem',
+    '&:hover': {
+      backgroundColor: '#ff3d5d'
+    }
+  };
+
+  const errorStyle = {
+    color: '#ff4d6d',
+    fontSize: isMobile ? '0.9rem' : '0.95rem',
+    textAlign: 'center',
+    marginTop: '0.5rem'
+  };
+
+  return (
+    <div style={containerStyle}>
+      <div style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-      }
-    : {
-        width: '100%',
-        maxWidth: '400px',
-        minWidth: '320px',
-        boxSizing: 'border-box',
-        padding: '2.5rem 2rem 2rem 2rem',
-      };
-
-  return (
-    <div className="login-container" style={{
-      minHeight: isMobile ? '100vh' : 'auto',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: isMobile ? 'center' : 'flex-start',
-      paddingTop: isMobile ? '0' : '5vh',
-      paddingBottom: isMobile ? '0' : '5vh',
-    }}>
-      <h1 className="login-title" style={{
-        textAlign: 'center',
-        color: '#ff4d6d',
-        fontWeight: 'bold',
-        fontSize: isMobile ? '1.3rem' : '2.2rem',
-        marginTop: isMobile ? '0.2rem' : '0.5rem',
-        marginBottom: isMobile ? '0.7rem' : '1.2rem',
-        letterSpacing: '1px',
-        textShadow: '2px 2px 8px #fff0f5',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.6rem',
+        width: '100%'
       }}>
-        <span role="img" aria-label="birthday">🎂</span> HBD WEBSITE <span role="img" aria-label="birthday">🎉</span>
-      </h1>
-      <form className="login-form" onSubmit={handleSubmit} style={{
-        ...cardStyle,
-        borderRadius: isMobile ? '14px' : '20px',
-        fontSize: isMobile ? '0.98rem' : '1rem',
-        margin: 0,
-      }}>
-        <h2 style={{ fontSize: isMobile ? '1.1rem' : '1.5rem' }}>Login</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{ fontSize: isMobile ? '0.95rem' : '1rem', padding: isMobile ? '0.6rem' : '0.7rem' }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ fontSize: isMobile ? '0.95rem' : '1rem', padding: isMobile ? '0.6rem' : '0.7rem' }}
-        />
-        <button type="submit" style={{ fontSize: isMobile ? '0.95rem' : '1rem', padding: isMobile ? '0.6rem' : '0.7rem' }}>Login</button>
-        {error && <div className="error">{error}</div>}
-      </form>
+        <h1 style={titleStyle}>
+          <span role="img" aria-label="birthday">🎂</span>
+          {' '}HBD WEBSITE{' '}
+          <span role="img" aria-label="birthday">🎉</span>
+        </h1>
+        
+        <form onSubmit={handleSubmit} style={formStyle}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={inputStyle}
+          />
+          <button type="submit" style={buttonStyle}>
+            Login
+          </button>
+          {error && <div style={errorStyle}>{error}</div>}
+        </form>
+      </div>
     </div>
   );
 };
 
-export default Login; 
+export default Login;
