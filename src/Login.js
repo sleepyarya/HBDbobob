@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './Login.css';
 
-function useIsMobile(breakpoint = 720) { // Ubah breakpoint ke 720 sesuai dengan Dashboard
+function useIsMobile(breakpoint = 720) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === 'pavana' && password === 'bobob') {
+    if (username.toLowerCase() === 'pavana' && password.toLowerCase() === 'bobob') {
       localStorage.setItem('isLoggedIn', 'true');
       toast.success('SELAMAT DATANG SAYANGKUUU', {
         position: "top-center",
@@ -63,11 +64,12 @@ const Login = () => {
     backgroundColor: '#fff',
     borderRadius: isMobile ? '16px' : '20px',
     padding: isMobile ? '1.5rem' : '2rem',
-    boxShadow: '0 4px 16px rgba(215,38,96,0.15)',
     display: 'flex',
     flexDirection: 'column',
     gap: isMobile ? '0.8rem' : '1rem',
-    border: '2px solid #ffb6c1'
+    border: '2px solid #ffb6c1',
+    position: 'relative',
+    transition: 'transform 0.3s ease',
   };
 
   const titleStyle = {
@@ -88,9 +90,7 @@ const Login = () => {
     boxSizing: 'border-box',
     outline: 'none',
     transition: 'border-color 0.2s',
-    '&:focus': {
-      borderColor: '#ff4d6d'
-    }
+    marginBottom: '0.5rem'
   };
 
   const buttonStyle = {
@@ -102,11 +102,8 @@ const Login = () => {
     fontSize: isMobile ? '0.95rem' : '1rem',
     fontWeight: 'bold',
     cursor: 'pointer',
-    transition: 'background-color 0.2s',
-    marginTop: isMobile ? '0.5rem' : '1rem',
-    '&:hover': {
-      backgroundColor: '#ff3d5d'
-    }
+    transition: 'background-color 0.2s, box-shadow 0.2s',
+    marginTop: isMobile ? '0.5rem' : '1rem'
   };
 
   const errorStyle = {
@@ -130,7 +127,7 @@ const Login = () => {
           <span role="img" aria-label="birthday">🎉</span>
         </h1>
         
-        <form onSubmit={handleSubmit} style={formStyle}>
+        <form onSubmit={handleSubmit} style={formStyle} className="login-card">
           <input
             type="text"
             placeholder="Username"
@@ -145,7 +142,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             style={inputStyle}
           />
-          <button type="submit" style={buttonStyle}>
+          <button type="submit" className="login-button" style={buttonStyle}>
             Login
           </button>
           {error && <div style={errorStyle}>{error}</div>}

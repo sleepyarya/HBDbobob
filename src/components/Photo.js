@@ -7,49 +7,63 @@ const Photo = () => {
   const [stream, setStream] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [finalPhoto, setFinalPhoto] = useState(null);
+  const [facingMode, setFacingMode] = useState('environment');
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const startCamera = async () => {
-      try {
-        const mediaStream = await navigator.mediaDevices.getUserMedia({ 
-          video: { 
-            facingMode: 'user',
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          } 
-        });
-        setStream(mediaStream);
-        if (videoRef.current) {
-          videoRef.current.srcObject = mediaStream;
-        }
-      } catch (err) {
-        console.error('Error accessing camera:', err);
-        alert('Unable to access camera. Please make sure you have granted camera permissions.');
+  const startCamera = async (mode) => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
+
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ 
+        video: { 
+          facingMode: mode,
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        } 
+      });
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = mediaStream;
       }
-    };
+      setStream(mediaStream);
+    } catch (err) {
+      console.error('Error accessing camera:', err);
+      alert('Unable to access camera. Please make sure you have granted camera permissions.');
+    }
+  };
 
-    startCamera();
-
+  useEffect(() => {
+    startCamera(facingMode);
     return () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, []);
+  }, []); // Dependency array kosong
+
+  const switchCamera = async () => {
+    const newMode = facingMode === 'user' ? 'environment' : 'user';
+    setFacingMode(newMode);
+    await startCamera(newMode);
+  };
 
   const capturePhoto = () => {
-    if (videoRef.current && photos.length < 4) {
-      const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(videoRef.current, 0, 0);
-      const photoUrl = canvas.toDataURL('image/jpeg');
-      setPhotos([...photos, photoUrl]);
-    }
-  };
+  if (videoRef.current && photos.length < 4) {
+    const canvas = document.createElement('canvas');
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.scale(-1, 1);
+    ctx.drawImage(videoRef.current, -canvas.width, 0);
+    
+    const photoUrl = canvas.toDataURL('image/jpeg');
+    setPhotos([...photos, photoUrl]);
+  }
+};
 
   const retakePhoto = (index) => {
     const newPhotos = photos.filter((_, i) => i !== index);
@@ -60,16 +74,14 @@ const Photo = () => {
   const createCollage = async () => {
     if (photos.length === 4) {
       const canvas = document.createElement('canvas');
-      const size = 800; // Size of the final collage
+      const size = 800;
       canvas.width = size;
       canvas.height = size;
       const ctx = canvas.getContext('2d');
 
-      // Draw background
       ctx.fillStyle = '#fff5f6';
       ctx.fillRect(0, 0, size, size);
 
-      // Load all images first
       const loadImage = (src) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
@@ -80,24 +92,19 @@ const Photo = () => {
       };
 
       try {
-        // Load all images
         const loadedImages = await Promise.all(photos.map(loadImage));
 
-        // Draw each photo in a 2x2 grid
         const photoSize = size / 2;
         loadedImages.forEach((img, index) => {
           const row = Math.floor(index / 2);
           const col = index % 2;
           
-          // Draw the photo
           ctx.drawImage(img, col * photoSize, row * photoSize, photoSize, photoSize);
           
-          // Draw heart border
           ctx.strokeStyle = '#ff4d6d';
           ctx.lineWidth = 8;
           ctx.strokeRect(col * photoSize, row * photoSize, photoSize, photoSize);
           
-          // Draw corner hearts
           const heartSize = 20;
           const corners = [
             [col * photoSize, row * photoSize],
@@ -134,12 +141,10 @@ const Photo = () => {
           });
         });
 
-        // Add final border with hearts
         ctx.strokeStyle = '#ff4d6d';
         ctx.lineWidth = 12;
         ctx.strokeRect(0, 0, size, size);
 
-        // Add corner decorations
         const cornerSize = 40;
         const corners = [
           [0, 0],
@@ -175,7 +180,6 @@ const Photo = () => {
           ctx.fill();
         });
 
-        // Set the final photo
         setFinalPhoto(canvas.toDataURL('image/jpeg', 1.0));
       } catch (error) {
         console.error('Error creating collage:', error);
@@ -204,18 +208,27 @@ const Photo = () => {
               {photos.length < 4 && (
                 <>
                   <video
-                    ref={videoRef}
-                    autoPlay
-                    playsInline
-                    className="camera-preview"
-                  />
-                  <button 
-                    className="capture-btn" 
-                    onClick={capturePhoto}
-                    disabled={photos.length >= 4}
-                  >
-                    Take Photo {photos.length + 1}/4
-                  </button>
+  ref={videoRef}
+  autoPlay
+  playsInline
+  className="camera-preview"
+  style={{ transform: 'scaleX(-1)' }} // Ubah dari scaleX(1) menjadi scaleX(-1)
+/>
+                  <div className="camera-controls">
+                    <button 
+                      className="switch-camera-btn"
+                      onClick={switchCamera}
+                    >
+                      Switch Camera
+                    </button>
+                    <button 
+                      className="capture-btn" 
+                      onClick={capturePhoto}
+                      disabled={photos.length >= 4}
+                    >
+                      Take Photo {photos.length + 1}/4
+                    </button>
+                  </div>
                 </>
               )}
               
@@ -266,5 +279,4 @@ const Photo = () => {
   );
 };
 
-export default Photo; 
- 
+export default Photo;
