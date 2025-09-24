@@ -142,6 +142,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             style={inputStyle}
           />
+          <h3>
+            HINT :username yg biasa kamu pake | Password : panggilanmu dari akuh
+          </h3>
           <button type="submit" className="login-button" style={buttonStyle}>
             Login
           </button>
